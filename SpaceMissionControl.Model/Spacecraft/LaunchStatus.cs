@@ -1,4 +1,4 @@
-﻿namespace SpaceMissionControl.Model
+﻿namespace SpaceMissionControl.Model.Spacecraft
 {
 	public enum LaunchStatus
 	{
