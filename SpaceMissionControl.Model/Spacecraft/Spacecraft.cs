@@ -15,7 +15,7 @@
 			Name = name;
 			Type = type;
 			FuelLevel = fuelLevel;
-			IsLaunched = true;
+			IsLaunched = false;
 		}
 
 		public bool Launch()

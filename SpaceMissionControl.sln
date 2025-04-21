@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceMissionControl.Model",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceMissionControl.Application", "SpaceMissionControl.Application\SpaceMissionControl.Application.csproj", "{6385D10D-2CBF-487D-9353-16A3B84CCF2D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceMissionControl.Application.Test", "SpaceMissionControl.Application.Test\SpaceMissionControl.Application.Test.csproj", "{E5EF1ABE-F127-49A9-A82F-F1377692C814}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{6385D10D-2CBF-487D-9353-16A3B84CCF2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6385D10D-2CBF-487D-9353-16A3B84CCF2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6385D10D-2CBF-487D-9353-16A3B84CCF2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5EF1ABE-F127-49A9-A82F-F1377692C814}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5EF1ABE-F127-49A9-A82F-F1377692C814}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5EF1ABE-F127-49A9-A82F-F1377692C814}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5EF1ABE-F127-49A9-A82F-F1377692C814}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
