@@ -8,7 +8,7 @@ namespace SpaceMissionControl.Application.Telemetry
 {
 	public interface ITelemetryService
 	{
-		Task SendTelemetryAsync(string spacecraftId, Dictionary<string, string> data);
+		Task<bool> SendTelemetryAsync(string spacecraftId, Dictionary<string, string> data);
 		Task<bool> VerifyConnectionAsync();
 	}
 }
