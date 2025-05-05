@@ -63,6 +63,8 @@ namespace SpaceMissionControl.Application.Mission
 				return new LaunchResult(false, "Failed to launch spacecraft");
 			}
 
+			
+
 			// Send telemetry data
 			await _telemetryService.SendTelemetryAsync(spacecraftId, new Dictionary<string, string>
 			{

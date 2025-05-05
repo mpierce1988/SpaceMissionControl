@@ -103,7 +103,6 @@ namespace SpaceMissionControl.Application.Test
 			MissionParameters parameters = new()
 			{
 				Destination = "Mars",
-				Distance = 54600000,
 				CrewSize = 0,
 				LaunchDate = DateTime.Now
 			};
@@ -170,7 +169,6 @@ namespace SpaceMissionControl.Application.Test
 			var parameters = new MissionParameters()
 			{
 				Destination = "Mars",
-				Distance = 54600000,
 				CrewSize = 0,
 				LaunchDate = DateTime.Now
 			};
@@ -219,12 +217,9 @@ namespace SpaceMissionControl.Application.Test
 			var parameters = new MissionParameters()
 			{
 				Destination = "Jupiter",
-				Distance = 588000000,
 				CrewSize = 0,
 				LaunchDate = DateTime.Now
-			};
-
-			// Arrange spacecraft and register the craft. Create launch site and MissionParameters
+			};			
 
 			// Setup weather service mock
 			var goodWeather = new WeatherCondition()
@@ -233,14 +228,19 @@ namespace SpaceMissionControl.Application.Test
 				Temperature = 22,
 				Visibility = 10,
 				Lightning = false
-			};			
+			};
 
 			/* Setup the mock call to .GetCurrentWeatherAsync(launchSite), and return goodWeather */
-
+			_mockWeatherService.Setup(ws => ws.GetCurrentWeatherAsync(launchSite))
+				.ReturnsAsync(goodWeather);
 			/* Setup the mock call to .IsSafeToLaunch(goodWeather), and return true */
+			_mockWeatherService.Setup(ws => ws.IsSafeToLaunch(goodWeather))
+				.Returns(true);
 
 			// Mock navigation system 
 			/* Setup call to .CalculatedRequiredFuel(parameters.Destination, spacecraft.Type), and return MORE fuel than the spacecraft has */
+			_mockNavigationSystem.Setup(ns => ns.CalculateRequiredFuel(parameters.Destination, spacecraft.Type))
+				.Returns(spacecraft.FuelLevel + 100);
 
 			// Act
 			var result = await _missionControlService.LaunchSpacecraftAsync(
@@ -251,6 +251,9 @@ namespace SpaceMissionControl.Application.Test
 			Assert.IsTrue(result.Message.Contains("Insufficient fuel"));
 			Assert.IsFalse(spacecraft.IsLaunched);
 		}
+
+		// TODO LaunchSpacecraftAsync_SpacecraftAlreadyLaunched_ReturnsFailureResult()
+		// TODO LaunchSpacecraftAsync_SpacecraftDoesNotExist_ReturnsFailureResult()
 
 		#endregion
 
@@ -267,7 +270,11 @@ namespace SpaceMissionControl.Application.Test
 			var expectedRoute = new List<string> { "Earth Orbit", "Lunar Transfer", "Mars Approach", "Mars Orbit" };
 
 			/* Setup required calls to mock NavigationSystem */
-			
+			_mockNavigationSystem.Setup(ns => ns.IsDestinationReachable(spacecraft.FuelLevel, destination, spacecraft.Type))
+				.Returns(true);
+
+			_mockNavigationSystem.Setup(ns => ns.GetRoutePlan(destination))
+				.Returns(expectedRoute);			
 
 			// Act
 			var routePlan = _missionControlService.PlanMission(spacecraft.Id, destination);
@@ -296,12 +303,16 @@ namespace SpaceMissionControl.Application.Test
 
 			string destination = "Alpha Centauri";
 
+			// TODO Mock call to _mockNavigationService.IsDestinationReachable(destination), return false
+
 			// Act
 			/* Implement */
 
 			// Assert
 			/* Implement */
 		}
+
+		// TODO PlanMission_InvalidSpacecraftId_ThrowsKeyNotFoundException()
 		#endregion
 	}
 }

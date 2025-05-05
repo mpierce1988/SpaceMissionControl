@@ -2,6 +2,8 @@
 
 namespace SpaceMissionControl.Application.Test
 {
+	#region Constructor Tests
+
 	/// <summary>
 	/// This is a basic example of Unit Testing without dependencies.
 	/// </summary>
@@ -26,11 +28,15 @@ namespace SpaceMissionControl.Application.Test
 			Assert.AreEqual(type, spacecraft.Type);
 			Assert.AreEqual(fuelLevel, spacecraft.FuelLevel);
 			Assert.IsFalse(spacecraft.IsLaunched);
-			Assert.AreEqual(LaunchStatus.NotLaucnhed, spacecraft.LaunchStatus);
+			Assert.AreEqual(LaunchStatus.NotLaunched, spacecraft.LaunchStatus);
 		}
 
+		#endregion
+
+		#region Launch Tests
+
 		[TestMethod]
-		public void Launch_WithSufficientFUel_ReturnsTrue()
+		public void Launch_WithSufficientFuel_ReturnsTrue()
 		{
 			// Arrange
 			int initialFuel = 100;
@@ -58,10 +64,10 @@ namespace SpaceMissionControl.Application.Test
 			bool result = spacecraft.Launch();
 
 			// Assert
-			Assert.IsFalse(result);
-			Assert.IsFalse(spacecraft.IsLaunched);
-			Assert.AreEqual(initialFuel, spacecraft.FuelLevel);
-			Assert.AreEqual(LaunchStatus.NotLaucnhed, spacecraft.LaunchStatus);
+			// TODO Assert result is false
+			// Assert spacecraft has NOT launched
+			// Assert current spacecraft FuelLevel and InitialFuel are equal (since it did not launch)
+			// Assert current spacecraft LaunchStatus is NotLaunched			
 		}
 
 		[TestMethod]
@@ -76,9 +82,14 @@ namespace SpaceMissionControl.Application.Test
 			bool result = spacecraft.Launch();
 
 			// Assert
-			Assert.IsFalse(result);
-			Assert.AreEqual(fuelAfterFirstLaunch, spacecraft.FuelLevel);
+			// TODO Assert result is False
+			// Assert current spacecraft FuelLevel matches FuelAfterFirstLaunch
+			// Assert spacecraft LaunchStatus is Launched
 		}
+
+		#endregion
+
+		#region ConsumeFuel Tests
 
 		[DataTestMethod]
 		[DataRow(10)]
@@ -127,19 +138,16 @@ namespace SpaceMissionControl.Application.Test
 			Assert.AreEqual(LaunchStatus.OutOfFuel, spacecraft.LaunchStatus);
 		}
 
-		[TestMethod]
-		public void Refuel_WithPositiveAmount_IncreasesFuelLevel()
-		{
-			// Arrange
-			double initialFuel = 50;
-			double refuelAmount = 25;
-			var spacecraft = new Spacecraft("SC-001", "Voyager", SpacecraftType.Satellite, initialFuel);
+		#endregion
 
-			// Act
-			spacecraft.Refuel(refuelAmount);
+		#region Refuel Tests
 
-			// Assert
-			Assert.AreEqual(initialFuel + refuelAmount, spacecraft.FuelLevel);
-		}
+		// TODO Refuel_WithValidAmounts_IncreasesFuelLevel() - use DataTestMethod
+
+		// TODO Refuel_WithNegativeAmount_ThrowsArgumentException()
+
+		// TODO Refuel_WhenLaunched_UpdatesStatusToLaunched()
+
+		#endregion
 	}
 }

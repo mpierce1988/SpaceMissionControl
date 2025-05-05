@@ -2,7 +2,7 @@
 {
 	public enum LaunchStatus
 	{
-		NotLaucnhed,
+		NotLaunched,
 		Launched,
 		OutOfFuel,
 		MissionComplete
